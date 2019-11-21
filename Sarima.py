@@ -11,7 +11,6 @@ from pylab import rcParams
 
 ##### Leer datos 
 df=pd.read_csv('Pronostico 3.csv',sep=';')[['Valor Neto',' Semana del año ',' FECHA completa ']]
-df.head()
 df.columns
 ##### Agregar datos por semana
 semana=2
@@ -38,7 +37,6 @@ y.head()
 #### Graficar Datos para identificar tendencia 
 y.plot(figsize=(19, 4))
 plt.show()
-
 
 ##### Descomponiendo los datos
 rcParams['figure.figsize'] = 18, 8
@@ -75,9 +73,9 @@ mod = sm.tsa.statespace.SARIMAX(y,
 results = mod.fit()
 print(results.summary().tables[1])
 
-results.plot_diagnostics(figsize=(10, 8))
+results.plot_diagnostics(figsize=(15, 8))
 plt.show()
-plt.savefig('books_read.png')
+
 
 ###REvision con datos reales
 pred = results.get_prediction(start=pd.to_datetime('2019-03-31'), dynamic=False)
@@ -116,3 +114,4 @@ plt.show()
 
 forecast = pred_uc.predicted_mean
 forecast.head(50)
+forecast.to_csv('predicion.csv')
